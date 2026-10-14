@@ -1,0 +1,21 @@
+[package]
+name = "nautilus-image-converter-reborn-extension"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# Modern Nautilus 43+ (GTK4 / API 4) Rust extension bindings
+nautilus-extension = { git = "https://github.com/philippedev101/nautilus-extension-rs", branch = "gtk4" }
+
+# GNOME GLib / GIO bindings (matching nautilus-extension's sys crate version 0.22)
+glib = "0.22"
+gio = "0.22"
+
+# URI parsing (converting file:/// URIs from Nautilus FileInfo)
+url = "2"
+
+# Localization / gettext for GNOME apps and extensions
+gettext-rs = { version = "0.7", features = ["gettext-system"] }

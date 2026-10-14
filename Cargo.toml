@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 # Modern Nautilus 43+ (GTK4 / API 4) Rust extension bindings
@@ -17,5 +17,7 @@ gio = "0.22"
 # URI parsing (converting file:/// URIs from Nautilus FileInfo)
 url = "2"
 
-# Localization / gettext for GNOME apps and extensions
-gettext-rs = { version = "0.7", features = ["gettext-system"] }
+# Dynamic symbol resolution for parent window detection in host GTK4 process
+libc = "0.2"
+
+

@@ -35,6 +35,7 @@ section = "gnome"
 priority = "optional"
 depends = "$auto, libnautilus-extension-4 | libnautilus-extension4"
 recommends = "nautilus-image-converter-reborn"
+maintainer-scripts = "debian"
 assets = [
     ["target/release/libnautilus_image_converter_reborn_extension.so", "usr/lib/nautilus/extensions-4/libnautilus_image_converter_reborn_extension.so", "755"],
     ["README.md", "usr/share/doc/nautilus-image-converter-reborn-extension/README.md", "644"],
@@ -46,6 +47,10 @@ assets = [
 name = "nautilus-image-converter-reborn-extension"
 license = "MIT"
 summary = "Modern Nautilus 43+ context menu extension to resize, rotate, and convert images"
+post_install_script = """
+echo "Please restart Nautilus to load the extension:"
+echo "  nautilus -q"
+"""
 assets = [
     { source = "target/release/libnautilus_image_converter_reborn_extension.so", dest = "/usr/lib64/nautilus/extensions-4/libnautilus_image_converter_reborn_extension.so", mode = "755" },
     { source = "README.md", dest = "/usr/share/doc/nautilus-image-converter-reborn-extension/README.md", mode = "644" },
@@ -53,5 +58,3 @@ assets = [
 ]
 [package.metadata.generate-rpm.requires]
 nautilus = "*"
-
-

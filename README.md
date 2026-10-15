@@ -33,7 +33,7 @@ makepkg -si
 ## Technology Stack (App part)
 
 - Rust
-- nautilus-extension
+- nautilus-extension (thanks to [this PR](https://github.com/talklittle/nautilus-extension-rs/pull/12))
 - glib
 - gio
 - libc

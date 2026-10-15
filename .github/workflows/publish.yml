@@ -27,12 +27,10 @@ jobs:
           - arch: x86_64
             runner: ubuntu-latest
             rust-target: x86_64-unknown-linux-gnu
-            deb-arch: amd64
 
           - arch: arm64
             runner: ubuntu-24.04-arm
             rust-target: aarch64-unknown-linux-gnu
-            deb-arch: arm64
 
     steps:
       - name: 📦 Checkout repository
@@ -40,14 +38,12 @@ jobs:
 
       # Both containers are Fedora-based and use dnf.
       # nautilus-devel provides libnautilus-extension-4 and pulls in gtk4-devel and glib2-devel.
-      - name: ⚙️ Install build and packaging tools
+      - name: ⚙️ Install build tools
         run: |
           dnf install -y \
             gcc \
             mold \
-            nautilus-devel \
-            dpkg \
-            openssl-devel
+            nautilus-devel
 
       # ── Linker ───────────────────────────────────────────────────────────
       # Make mold the default system linker (high performance drop-in replacement for ld).

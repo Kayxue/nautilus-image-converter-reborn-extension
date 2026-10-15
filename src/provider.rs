@@ -1,12 +1,10 @@
-use crate::actions::{execute_action, ImageAction};
+use crate::actions::{ImageAction, execute_action};
 use crate::file_utils::{are_all_images, extract_image_paths};
 use nautilus_extension::{FileInfo, Menu, MenuItem, MenuProvider};
 
 /// Menu provider that adds image transformation entries to Nautilus context menus.
 #[derive(Default, Debug, Clone)]
 pub struct ImageConverterMenuProvider {
-    /// When true, wraps the actions inside a parent submenu. Defaults to false (top-level items).
-    pub use_submenu: bool,
     /// When true, includes the "Convert Image(s)..." item. Defaults to false.
     pub enable_convert: bool,
 }
@@ -15,15 +13,8 @@ impl ImageConverterMenuProvider {
     /// Creates a new provider instance with top-level context menu items.
     pub fn new() -> Self {
         Self {
-            use_submenu: false,
             enable_convert: false,
         }
-    }
-
-    /// Sets whether items should be organized into an "Image Operations" submenu.
-    pub fn with_submenu(mut self, use_submenu: bool) -> Self {
-        self.use_submenu = use_submenu;
-        self
     }
 
     /// Sets whether the Convert Image(s) menu item should be shown.
@@ -55,19 +46,17 @@ impl MenuProvider for ImageConverterMenuProvider {
             "Rotate Images..."
         };
 
-        let resize_item = MenuItem::new(ImageAction::Resize.id_str(), resize_label).on_activate(
-            |activation| {
+        let resize_item =
+            MenuItem::new(ImageAction::Resize.id_str(), resize_label).on_activate(|activation| {
                 let paths = extract_image_paths(activation.files());
                 execute_action(ImageAction::Resize, &paths);
-            },
-        );
+            });
 
-        let rotate_item = MenuItem::new(ImageAction::Rotate.id_str(), rotate_label).on_activate(
-            |activation| {
+        let rotate_item =
+            MenuItem::new(ImageAction::Rotate.id_str(), rotate_label).on_activate(|activation| {
                 let paths = extract_image_paths(activation.files());
                 execute_action(ImageAction::Rotate, &paths);
-            },
-        );
+            });
 
         let mut items = vec![resize_item, rotate_item];
 
@@ -85,15 +74,8 @@ impl MenuProvider for ImageConverterMenuProvider {
             items.push(convert_item);
         }
 
-        if self.use_submenu {
-            let submenu = Menu::new(items);
-            vec![MenuItem::new("ImageConverter::menu", "Image Operations").with_submenu(submenu)]
-        } else {
-            items
-        }
+        items
     }
-
-
 
     fn get_background_items(&self, _current_folder: &FileInfo) -> Vec<MenuItem> {
         // Image resize and rotate are file-specific actions, so folder background menus remain empty.

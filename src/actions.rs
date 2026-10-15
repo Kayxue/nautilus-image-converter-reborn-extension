@@ -95,7 +95,14 @@ pub fn execute_action(action: ImageAction, paths: &[PathBuf]) {
     if let Some(surface) = unsafe { parent_window::get_active_nautilus_surface() } {
         // 1. Try X11 / XWayland parent XID
         if let Some(xid) = unsafe { parent_window::get_x11_parent_xid(surface) } {
-            spawn_converter(&binary_path, action, &paths_clone, Some(xid), None, parent_window);
+            spawn_converter(
+                &binary_path,
+                action,
+                &paths_clone,
+                Some(xid),
+                None,
+                parent_window,
+            );
             return;
         }
 
@@ -121,7 +128,14 @@ pub fn execute_action(action: ImageAction, paths: &[PathBuf]) {
     }
 
     // 3. Fallback: spawn standalone without parent window binding
-    spawn_converter(&binary_path, action, &paths_clone, None, None, parent_window);
+    spawn_converter(
+        &binary_path,
+        action,
+        &paths_clone,
+        None,
+        None,
+        parent_window,
+    );
 }
 
 /// Spawns `nautilus-image-converter` with the configured arguments.

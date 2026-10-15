@@ -4,13 +4,9 @@ use nautilus_image_converter_reborn_extension::provider::ImageConverterMenuProvi
 #[test]
 fn test_menu_provider_configuration() {
     let default_provider = ImageConverterMenuProvider::new();
-    assert!(!default_provider.use_submenu);
     assert!(!default_provider.enable_convert);
 
-    let configured_provider = ImageConverterMenuProvider::new()
-        .with_submenu(true)
-        .with_convert(true);
-    assert!(configured_provider.use_submenu);
+    let configured_provider = ImageConverterMenuProvider::new().with_convert(true);
     assert!(configured_provider.enable_convert);
 }
 

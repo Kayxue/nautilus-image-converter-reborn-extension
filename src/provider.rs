@@ -90,9 +90,9 @@ mod tests {
     #[test]
     fn test_provider_instantiation() {
         let provider = ImageConverterMenuProvider::new();
-        assert!(!provider.use_submenu);
+        assert!(!provider.enable_convert);
 
-        let provider_submenu = ImageConverterMenuProvider::new().with_submenu(true);
-        assert!(provider_submenu.use_submenu);
+        let provider_convert = ImageConverterMenuProvider::new().with_convert(true);
+        assert!(provider_convert.enable_convert);
     }
 }

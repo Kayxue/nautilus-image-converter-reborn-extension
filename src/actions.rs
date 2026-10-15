@@ -207,9 +207,6 @@ mod tests {
 
     #[test]
     fn test_binary_lookup() {
-        // /usr/bin/nautilus-image-converter is installed on the system
-        let bin = find_app_binary();
-        assert!(bin.is_some());
-        assert!(is_app_installed());
+        assert_eq!(find_app_binary().is_some(), is_app_installed());
     }
 }

@@ -14,9 +14,6 @@ nautilus-extension = { git = "https://github.com/philippedev101/nautilus-extensi
 glib = "0.22"
 gio = "0.22"
 
-# URI parsing (converting file:/// URIs from Nautilus FileInfo)
-url = "2"
-
 # Dynamic symbol resolution for parent window detection in host GTK4 process
 libc = "0.2"
 

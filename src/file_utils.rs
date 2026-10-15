@@ -1,6 +1,5 @@
 use nautilus_extension::FileInfo;
 use std::path::PathBuf;
-use url::Url;
 
 /// Supported image formats matching the capabilities of the companion `image` crate:
 /// - Png
@@ -135,14 +134,7 @@ pub fn is_image_file(file: &FileInfo) -> bool {
     }
 
     // 2. Fallback check: check file extension if MIME is missing or generic
-    if let Some(path) = get_file_path(file) {
-        if let Some(ext) = path.extension().and_then(|e| e.to_str()) {
-            let ext_lower = ext.to_ascii_lowercase();
-            return is_supported_extension(&ext_lower);
-        }
-    } else if let Some(uri_str) = file.uri()
-        && let Ok(parsed_url) = Url::parse(&uri_str)
-        && let Ok(path) = parsed_url.to_file_path()
+    if let Some(path) = get_file_path(file)
         && let Some(ext) = path.extension().and_then(|e| e.to_str())
     {
         let ext_lower = ext.to_ascii_lowercase();
@@ -161,8 +153,8 @@ pub fn get_file_path(file: &FileInfo) -> Option<PathBuf> {
     }
 
     let uri_str = file.uri()?;
-    let url = Url::parse(&uri_str).ok()?;
-    url.to_file_path().ok()
+    let (path, _) = glib::filename_from_uri(&uri_str).ok()?;
+    Some(path)
 }
 
 /// Returns `true` if the slice is non-empty and every item is a supported image file.

@@ -80,21 +80,15 @@ target/release/libnautilus_image_converter_reborn_extension.so
 
 ## Installation
 
-Nautilus 43+ scans for compiled extensions in two locations:
-
-### 1. User Installation (Recommended for Development)
+Compiled native (`.so`) Nautilus extensions are loaded from the system extension directory (`/usr/lib/nautilus/extensions-4/`):
 
 ```bash
-mkdir -p ~/.local/share/nautilus/extensions-4/
-cp target/release/libnautilus_image_converter_reborn_extension.so ~/.local/share/nautilus/extensions-4/
-```
-
-### 2. System-Wide Installation
-
-```bash
-# On Debian/Ubuntu/Fedora/Arch:
+# Copy the compiled shared library to the Nautilus extensions directory
 sudo cp target/release/libnautilus_image_converter_reborn_extension.so /usr/lib/nautilus/extensions-4/
-# Or /usr/lib64/nautilus/extensions-4/ on systems with lib64 paths
+
+# Restart Nautilus to load the extension
+nautilus -q
+nautilus &
 ```
 
 ---

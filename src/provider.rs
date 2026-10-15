@@ -1,6 +1,6 @@
 use crate::actions::{ImageAction, execute_action};
 use crate::file_utils::{are_all_images, extract_image_paths};
-use nautilus_extension::{FileInfo, Menu, MenuItem, MenuProvider};
+use nautilus_extension::{FileInfo, MenuItem, MenuProvider};
 
 /// Menu provider that adds image transformation entries to Nautilus context menus.
 #[derive(Default, Debug, Clone)]

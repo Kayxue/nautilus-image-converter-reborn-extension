@@ -3,7 +3,6 @@
 Extension project of Nautilus Image Converter Reborn.
 
 ## Installation
-## Installation
 ### Ubuntu (or other Debian-based distro)
 Download package from [release page](https://github.com/Kayxue/nautilus-image-converter-reborn-extension/releases), and install it by double clicking on it or through command below:
 ```bash

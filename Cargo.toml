@@ -2,6 +2,10 @@
 name = "nautilus-image-converter-reborn-extension"
 version = "0.1.0"
 edition = "2024"
+description = "Modern Nautilus 43+ context menu extension to resize, rotate, and convert images"
+license = "MIT"
+authors = ["Kay <s0990006@gmail.com>"]
+repository = "https://github.com/Kayxue/nautilus-image-converter-reborn-extension"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -16,5 +20,38 @@ gio = "0.22"
 
 # Dynamic symbol resolution for parent window detection in host GTK4 process
 libc = "0.2"
+
+# ─── Debian packaging (cargo-deb) ────────────────────────────────────────────
+[package.metadata.deb]
+name = "nautilus-image-converter-reborn-extension"
+maintainer = "Kay <s0990006@gmail.com>"
+copyright = "2026 Kay"
+license-file = ["LICENSE", "0"]
+extended-description = """\
+A modern context-menu extension for GNOME Files (Nautilus 43+ / GTK4 / API 4) \
+written in Rust. Detects selected image files and provides 'Resize Image(s)...' \
+and 'Rotate Image(s)...' context menu entries."""
+section = "gnome"
+priority = "optional"
+depends = "$auto, libnautilus-extension-4 | libnautilus-extension4"
+recommends = "nautilus-image-converter-reborn"
+assets = [
+    ["target/release/libnautilus_image_converter_reborn_extension.so", "usr/lib/nautilus/extensions-4/libnautilus_image_converter_reborn_extension.so", "755"],
+    ["README.md", "usr/share/doc/nautilus-image-converter-reborn-extension/README.md", "644"],
+    ["LICENSE", "usr/share/doc/nautilus-image-converter-reborn-extension/LICENSE", "644"],
+]
+
+# ─── RPM packaging (cargo-generate-rpm) ──────────────────────────────────────
+[package.metadata.generate-rpm]
+name = "nautilus-image-converter-reborn-extension"
+license = "MIT"
+summary = "Modern Nautilus 43+ context menu extension to resize, rotate, and convert images"
+assets = [
+    { source = "target/release/libnautilus_image_converter_reborn_extension.so", dest = "/usr/lib64/nautilus/extensions-4/libnautilus_image_converter_reborn_extension.so", mode = "755" },
+    { source = "README.md", dest = "/usr/share/doc/nautilus-image-converter-reborn-extension/README.md", mode = "644" },
+    { source = "LICENSE", dest = "/usr/share/doc/nautilus-image-converter-reborn-extension/LICENSE", mode = "644" },
+]
+[package.metadata.generate-rpm.requires]
+nautilus = "*"
 
 

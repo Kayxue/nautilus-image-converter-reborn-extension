@@ -30,7 +30,7 @@ makepkg -si
 * Extensions repository: This repository
 * App repository: [Here](https://github.com/Kayxue/nautilus-image-converter-reborn-app)
 
-## Technology Stack (App part)
+## Technology Stack (Extension part)
 
 - Rust
 - nautilus-extension (thanks for [this PR](https://github.com/talklittle/nautilus-extension-rs/pull/12))
